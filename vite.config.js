@@ -91,7 +91,8 @@ function seo() {
       // La imagen del héroe es el elemento LCP, pero su URL sólo aparece dentro
       // del bundle, así que el navegador no puede descubrirla al analizar el
       // HTML. Buscamos su nombre con hash y la precargamos.
-      const heroe = Object.keys(ctx.bundle || {}).find((f) => /familia-.*\.webp$/.test(f))
+      const archivos = Object.keys(ctx.bundle || {})
+      const heroe = archivos.find((f) => /familia-.*\.webp$/.test(f))
       const precargas = heroe
         ? [
             {
@@ -107,6 +108,24 @@ function seo() {
             },
           ]
         : []
+
+      // Las tres tipografías se usan por encima del pliegue (Inter en el texto,
+      // Playfair en el título y su itálica en el lema). Si sólo se declararan en
+      // el CSS, el navegador las descubriría al terminar de leerlo; precargarlas
+      // las pone a descargar en paralelo con la hoja de estilo.
+      for (const fuente of archivos.filter((f) => /\.woff2$/.test(f))) {
+        precargas.push({
+          tag: "link",
+          attrs: {
+            rel: "preload",
+            as: "font",
+            type: "font/woff2",
+            href: `/${fuente}`,
+            crossorigin: "anonymous",
+          },
+          injectTo: "head",
+        })
+      }
 
       return [
         ...precargas,

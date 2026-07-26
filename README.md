@@ -56,6 +56,28 @@ El patrón de rombos de la marca se recreó como SVG vectorial en `public/patter
 y se aplica con `mask-image` (clase `.patron`), de modo que se puede teñir de
 cualquier color y escalar sin perder nitidez.
 
+## Rendimiento y cabeceras
+
+Las tipografías están **autohospedadas** en `src/assets/fonts/` con sus `@font-face`
+al inicio de `src/index.css`. Antes se pedían a Google Fonts, lo que encadenaba dos
+dominios externos antes de pintar texto. Son fuentes variables: un archivo por
+familia cubre todos los pesos. El plugin de `vite.config.js` inyecta la precarga de
+las tres, más la de la imagen del héroe, usando el nombre con hash del build.
+
+`vercel.json` define:
+
+- **CSP y cabeceras de seguridad** en todas las rutas. La CSP es estricta
+  (`default-src 'self'`); sólo abre `script-src`/`connect-src` a los dominios de
+  Vercel Analytics. Verificada sin violaciones sobre el build real.
+- **Caché inmutable de un año para `/assets/*`**. Vite pone hash de contenido en
+  esos nombres, así que un cambio genera un archivo nuevo. Por defecto Vercel los
+  servía con `max-age=0, must-revalidate`, lo que obligaba a revalidar todo en
+  cada visita recurrente.
+- **Caché de un día** para los archivos sin hash (`og-image.jpg`, iconos, patrón).
+
+Ojo: Vercel valida `vercel.json` contra un esquema estricto. No admite claves
+propias como `comment` dentro de las reglas; el despliegue falla.
+
 ## Estructura
 
 ```
