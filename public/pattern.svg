@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Patron de marca CSIP: rombos redondeados encadenados. Pensado para usarse
+       como mask-image, por eso todo va en negro solido sobre fondo transparente. -->
+  <defs>
+    <g id="motivo">
+      <rect x="-23" y="-23" width="46" height="46" rx="11" transform="rotate(45)"
+            fill="none" stroke="#000" stroke-width="9" />
+      <rect x="-7.5" y="-7.5" width="15" height="15" rx="3.5" transform="rotate(45)" fill="#000" />
+    </g>
+  </defs>
+  <use href="#motivo" x="60" y="60" />
+  <use href="#motivo" x="0" y="0" />
+  <use href="#motivo" x="120" y="0" />
+  <use href="#motivo" x="0" y="120" />
+  <use href="#motivo" x="120" y="120" />
+</svg>

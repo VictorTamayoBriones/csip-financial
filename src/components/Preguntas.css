@@ -1,0 +1,126 @@
+.preguntas {
+  background: var(--crema);
+}
+
+.preguntas__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 72px);
+  align-items: start;
+}
+
+.preguntas__encabezado {
+  position: sticky;
+  top: 120px;
+}
+
+.preguntas__contacto {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+  padding: 16px 24px 16px 20px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  color: var(--verde);
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.preguntas__contacto:hover {
+  border-color: var(--verde);
+  box-shadow: var(--sombra);
+}
+
+.preguntas__contacto small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.preguntas__contacto strong {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: var(--azul);
+}
+
+.preguntas__rombos {
+  margin-top: 32px;
+}
+
+.preguntas__lista {
+  border-top: 1px solid var(--linea);
+}
+
+.pregunta {
+  border-bottom: 1px solid var(--linea);
+}
+
+.pregunta summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 4px;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--azul);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.18s ease;
+}
+
+.pregunta summary::-webkit-details-marker {
+  display: none;
+}
+
+.pregunta summary:hover {
+  color: var(--verde);
+}
+
+/* Signo de "más" que gira al abrir */
+.pregunta__mas {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.25s ease;
+}
+
+.pregunta__mas::before,
+.pregunta__mas::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1.5px;
+  background: currentColor;
+}
+
+.pregunta__mas::after {
+  transform: rotate(90deg);
+}
+
+.pregunta[open] .pregunta__mas {
+  transform: rotate(135deg);
+}
+
+.pregunta p {
+  padding: 0 40px 26px 4px;
+  font-size: 15.5px;
+  color: var(--gris);
+  max-width: 68ch;
+}
+
+@media (max-width: 900px) {
+  .preguntas__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preguntas__encabezado {
+    position: static;
+  }
+}

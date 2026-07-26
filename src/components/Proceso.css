@@ -1,0 +1,85 @@
+.proceso {
+  position: relative;
+  overflow: hidden;
+  background: var(--azul);
+  color: var(--blanco);
+}
+
+.proceso__patron {
+  position: absolute;
+  inset: 0;
+  background-color: var(--blanco);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.proceso .contenedor {
+  position: relative;
+}
+
+.proceso__encabezado {
+  max-width: 680px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+.proceso .eyebrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.proceso .eyebrow::after {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.proceso .titulo-seccion {
+  color: var(--blanco);
+}
+
+.proceso__lista {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 8px;
+  counter-reset: paso;
+}
+
+.paso {
+  padding: 30px 26px 34px;
+  border-top: 2px solid rgba(255, 255, 255, 0.28);
+  position: relative;
+}
+
+.paso::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--blanco);
+  transform: rotate(45deg);
+}
+
+.paso__numero {
+  display: block;
+  font-family: var(--display);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 14px;
+}
+
+.paso h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.paso p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.proceso__cta {
+  margin-top: 40px;
+}

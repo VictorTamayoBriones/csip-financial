@@ -1,0 +1,51 @@
+.cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--azul-oscuro);
+  color: var(--blanco);
+  padding-block: clamp(64px, 8vw, 100px);
+  text-align: center;
+}
+
+.cta__patron {
+  position: absolute;
+  inset: 0;
+  background-color: var(--blanco);
+  opacity: 0.09;
+  pointer-events: none;
+}
+
+.cta__contenido {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.cta .eyebrow {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cta h2 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  max-width: 16ch;
+}
+
+.cta__texto {
+  margin-top: 20px;
+  max-width: 54ch;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.cta__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.cta__horario {
+  margin-top: 26px;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.6);
+}

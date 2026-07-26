@@ -1,0 +1,289 @@
+/* ==========================================================================
+   CSIP · Sistema de diseño
+   Los colores se muestrearon directamente del logotipo y la portada de marca.
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --azul: #1f3391;
+  --azul-oscuro: #131f5c;
+  --azul-claro: #e7eaf7;
+  --verde: #046b08;
+  --verde-oscuro: #034f06;
+  --verde-claro: #e4efe5;
+  --tinta: #0b0b0f;
+
+  /* Neutrales */
+  --crema: #f7f7f1;
+  --blanco: #ffffff;
+  --gris: #5a5f6b;
+  --gris-claro: #8a8f99;
+  --linea: #e3e3da;
+  --linea-suave: #eeeee7;
+
+  /* Tipografía */
+  --display: "Playfair Display", "Times New Roman", serif;
+  --texto: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Ritmo */
+  --ancho: 1180px;
+  --radio: 14px;
+  --radio-sm: 10px;
+  --sombra: 0 18px 50px -28px rgba(19, 31, 92, 0.45);
+  --sombra-suave: 0 2px 10px -4px rgba(19, 31, 92, 0.18);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--texto);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--tinta);
+  background: var(--crema);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Utilidades compartidas
+   -------------------------------------------------------------------------- */
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.seccion {
+  padding-block: clamp(64px, 8vw, 108px);
+}
+
+/* Enlace de salto: sólo visible al navegar con teclado */
+.saltar {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: 0 0 var(--radio-sm) var(--radio-sm);
+  background: var(--azul);
+  color: var(--blanco);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.18s ease;
+}
+
+.saltar:focus {
+  top: 0;
+}
+
+/* Etiqueta superior con filete, como en las piezas gráficas de la marca */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--texto);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 22px;
+}
+
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--linea);
+}
+
+.eyebrow--centrado {
+  justify-content: center;
+}
+
+.eyebrow--centrado::after {
+  display: none;
+}
+
+.titulo-seccion {
+  font-size: clamp(2rem, 4.4vw, 3.15rem);
+  color: var(--azul);
+}
+
+.subtitulo {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--verde);
+  margin-top: 14px;
+}
+
+.entradilla {
+  max-width: 62ch;
+  color: var(--gris);
+  margin-top: 20px;
+}
+
+/* Botones ------------------------------------------------------------------ */
+
+.btn {
+  --btn-bg: var(--azul);
+  --btn-color: var(--blanco);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--verde {
+  --btn-bg: var(--verde);
+}
+
+.btn--verde:hover {
+  --btn-bg: var(--verde-oscuro);
+}
+
+.btn--fantasma {
+  --btn-bg: transparent;
+  --btn-color: var(--azul);
+  border-color: rgba(31, 51, 145, 0.28);
+}
+
+.btn--fantasma:hover {
+  --btn-bg: var(--azul-claro);
+}
+
+.btn--claro {
+  --btn-bg: var(--blanco);
+  --btn-color: var(--azul);
+}
+
+.btn svg {
+  flex: none;
+}
+
+/* Patrón de marca ---------------------------------------------------------- */
+
+/* Se aplica como máscara para poder teñirlo con cualquier color de marca. */
+.patron {
+  -webkit-mask-image: url("/pattern.svg");
+  mask-image: url("/pattern.svg");
+  -webkit-mask-size: 120px 120px;
+  mask-size: 120px 120px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  background-color: var(--azul);
+}
+
+/* Trío de rombos azul / verde / negro del cierre de las piezas de marca */
+.rombos {
+  display: flex;
+  gap: 10px;
+}
+
+.rombos span {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--azul);
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+.rombos span:nth-child(2) {
+  border-color: var(--verde);
+}
+
+.rombos span:nth-child(3) {
+  border-color: var(--tinta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

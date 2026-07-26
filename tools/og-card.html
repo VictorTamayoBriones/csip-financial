@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OG</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; box-sizing: border-box; }
+      body {
+        width: 1200px; height: 630px; overflow: hidden;
+        background: #f7f7f1; font-family: "Inter", sans-serif; position: relative;
+      }
+      .cinta {
+        height: 22px; background-color: #1f3391;
+        -webkit-mask-image: url("/pattern.svg"); -webkit-mask-size: 90px 90px;
+      }
+      .patron {
+        position: absolute; top: 22px; right: 0; width: 470px; height: 430px;
+        background-color: #1f3391; opacity: .9;
+        -webkit-mask-image: url("/pattern.svg"), linear-gradient(to top, transparent, #000 35%);
+        -webkit-mask-size: 110px 110px, 100% 100%;
+        -webkit-mask-composite: source-in;
+      }
+      .grid { display: flex; height: 608px; align-items: flex-end; }
+      .texto { padding: 44px 0 56px 68px; flex: 1; }
+      .marca { display: flex; align-items: center; gap: 12px; margin-bottom: 46px; }
+      .marca img { width: 52px; height: 52px; mix-blend-mode: multiply; }
+      .marca strong {
+        font-family: "Playfair Display", serif; font-size: 34px; color: #1f3391; letter-spacing: .04em; line-height: 1;
+      }
+      .marca small {
+        display: block; font-size: 10px; font-weight: 600; letter-spacing: .16em;
+        text-transform: uppercase; color: #046b08;
+      }
+      .eyebrow {
+        display: flex; align-items: center; gap: 16px; font-size: 13px; font-weight: 600;
+        letter-spacing: .24em; text-transform: uppercase; color: #046b08; margin-bottom: 10px;
+      }
+      .eyebrow::after { content: ""; width: 150px; height: 1px; background: #d8d8cf; }
+      h1 { font-family: "Playfair Display", serif; font-size: 104px; color: #1f3391; line-height: .95; letter-spacing: -.02em; }
+      .lema {
+        font-family: "Playfair Display", serif; font-style: italic; font-size: 30px;
+        color: #046b08; margin-top: 14px;
+      }
+      .tel {
+        display: inline-flex; align-items: center; gap: 14px; margin-top: 40px;
+        padding: 12px 26px 12px 14px; background: #fff; border: 1px solid rgba(4,107,8,.35); border-radius: 14px;
+      }
+      .tel i {
+        width: 38px; height: 38px; border-radius: 50%; background: #046b08; display: grid; place-items: center;
+      }
+      .tel svg { width: 20px; height: 20px; fill: #fff; }
+      .tel span { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #046b08; }
+      .tel b { display: block; font-family: "Playfair Display", serif; font-size: 27px; color: #1f3391; letter-spacing: .03em; }
+      .foto { width: 430px; height: 545px; margin-right: 62px; position: relative; }
+      .foto img {
+        width: 100%; height: 100%; object-fit: cover; object-position: center 12%;
+        border-radius: 14px 14px 0 0; box-shadow: 0 26px 50px -30px rgba(19,31,92,.55);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cinta"></div>
+    <div class="patron"></div>
+    <div class="grid">
+      <div class="texto">
+        <div class="marca">
+          <img src="/src/assets/logo-csip.jpg" alt="" />
+          <div>
+            <strong>CSIP</strong>
+            <small>Servicios Financieros</small>
+          </div>
+        </div>
+        <p class="eyebrow">Crédito</p>
+        <h1>Mejoravit</h1>
+        <p class="lema">En efectivo, sin hipotecar tu casa.</p>
+        <div class="tel">
+          <i>
+            <svg viewBox="0 0 24 24">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 11.98c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.74 2.66 4.22 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/>
+            </svg>
+          </i>
+          <div>
+            <span>Escríbenos por WhatsApp</span>
+            <b>221 251 7218</b>
+          </div>
+        </div>
+      </div>
+      <div class="foto"><img src="/src/assets/familia.jpg" alt="" /></div>
+    </div>
+  </body>
+</html>

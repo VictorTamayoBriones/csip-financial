@@ -1,0 +1,150 @@
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import { empresa, preguntas, requisitos, sitio } from "./src/data/site.js"
+
+const url = sitio.url.replace(/\/$/, "")
+
+/**
+ * Todo lo que depende del dominio se genera aquí a partir de `sitio` en
+ * src/data/site.js: canónica, Open Graph con URL, Twitter, JSON-LD, robots.txt
+ * y sitemap.xml. Así basta cambiar el dominio en un solo lugar.
+ */
+function seo() {
+  const datosEstructurados = [
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "@id": `${url}/#organizacion`,
+      name: empresa.nombreLargo,
+      alternateName: empresa.nombre,
+      url,
+      logo: `${url}/apple-touch-icon.png`,
+      image: `${url}${sitio.imagen}`,
+      description: sitio.descripcion,
+      telephone: empresa.telefonoInternacional,
+      email: empresa.correo,
+      priceRange: "$$",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Puebla",
+        addressRegion: "Puebla",
+        addressCountry: "MX",
+      },
+      areaServed: { "@type": "Country", name: "México" },
+      openingHours: ["Mo-Fr 09:00-19:00", "Sa 09:00-14:00"],
+      makesOffer: {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "LoanOrCredit",
+          name: "Crédito Mejoravit en efectivo",
+          description:
+            "Asesoría y gestión del Crédito Mejoravit del Infonavit para reparar, remodelar o ampliar tu vivienda, con disposición en efectivo.",
+          loanType: "Crédito para mejora de vivienda",
+          currency: "MXN",
+        },
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${url}/#sitio`,
+      url,
+      name: sitio.titulo,
+      inLanguage: "es-MX",
+      publisher: { "@id": `${url}/#organizacion` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${url}/#preguntas`,
+      mainEntity: preguntas.map((p) => ({
+        "@type": "Question",
+        name: p.q,
+        acceptedAnswer: { "@type": "Answer", text: p.a },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "@id": `${url}/#proceso`,
+      name: "Cómo obtener tu Crédito Mejoravit con CSIP",
+      description: "Proceso de cuatro pasos para tramitar el Crédito Mejoravit.",
+      supply: requisitos.map((r) => ({ "@type": "HowToSupply", name: r })),
+      step: [
+        "Escríbenos por WhatsApp",
+        "Revisamos tu precalificación",
+        "Integramos tu expediente",
+        "Recibes tu crédito",
+      ].map((nombre, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: nombre,
+        url: `${url}/#proceso`,
+      })),
+    },
+  ]
+
+  return {
+    name: "csip-seo",
+
+    transformIndexHtml() {
+      return [
+        { tag: "link", attrs: { rel: "canonical", href: `${url}/` }, injectTo: "head" },
+        { tag: "meta", attrs: { property: "og:url", content: `${url}/` }, injectTo: "head" },
+        {
+          tag: "meta",
+          attrs: { property: "og:image", content: `${url}${sitio.imagen}` },
+          injectTo: "head",
+        },
+        {
+          tag: "meta",
+          attrs: { property: "og:image:alt", content: sitio.imagenAlto },
+          injectTo: "head",
+        },
+        { tag: "meta", attrs: { property: "og:image:width", content: "1200" }, injectTo: "head" },
+        { tag: "meta", attrs: { property: "og:image:height", content: "630" }, injectTo: "head" },
+        {
+          tag: "meta",
+          attrs: { name: "twitter:image", content: `${url}${sitio.imagen}` },
+          injectTo: "head",
+        },
+        {
+          tag: "script",
+          attrs: { type: "application/ld+json" },
+          children: JSON.stringify(datosEstructurados),
+          injectTo: "head",
+        },
+      ]
+    },
+
+    generateBundle() {
+      const hoy = new Date().toISOString().slice(0, 10)
+
+      this.emitFile({
+        type: "asset",
+        fileName: "robots.txt",
+        source: `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`,
+      })
+
+      this.emitFile({
+        type: "asset",
+        fileName: "sitemap.xml",
+        source: `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${url}/</loc>
+    <lastmod>${hoy}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+`,
+      })
+    },
+  }
+}
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), seo()],
+})
