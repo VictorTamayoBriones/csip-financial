@@ -8,10 +8,9 @@
  * Datos del sitio para SEO. `url` es la única fuente de verdad del dominio:
  * de aquí salen la etiqueta canónica, las Open Graph, el JSON-LD, el sitemap y
  * el robots.txt (ver el plugin en vite.config.js).
- * TODO: cambiar por el dominio definitivo antes de publicar.
  */
 export const sitio = {
-  url: "https://www.csip.mx",
+  url: "https://www.csip-financial.com",
   titulo: "CSIP · Crédito Mejoravit en efectivo",
   descripcion:
     "En CSIP te asesoramos para obtener tu Crédito Mejoravit de Infonavit y disponer de él en efectivo. Sin hipotecar tu casa y con descuento vía nómina.",
