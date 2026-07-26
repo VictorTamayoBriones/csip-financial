@@ -1,4 +1,6 @@
-import familia from "../assets/familia.webp"
+import familia380 from "../assets/familia-380.webp"
+import familia500 from "../assets/familia.webp"
+import { heroeSizes } from "../data/imagenes"
 import { empresa, mensajeDefault, montoMaximo, whatsapp } from "../data/site"
 import { IconoFlecha, IconoWhatsApp } from "./Iconos"
 import "./Hero.css"
@@ -64,8 +66,12 @@ export default function Hero() {
         </div>
 
         <div className="hero__imagen">
+          {/* En móvil la foto ocupa 342 px y en escritorio hasta 515 px, así que
+              en pantallas pequeñas basta la versión de 380. */}
           <img
-            src={familia}
+            src={familia500}
+            srcSet={`${familia380} 380w, ${familia500} 500w`}
+            sizes={heroeSizes}
             alt="Familia mexicana remodelando y pintando la pared de su casa con el Crédito Mejoravit"
             width="500"
             height="730"

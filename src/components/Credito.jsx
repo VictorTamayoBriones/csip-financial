@@ -1,4 +1,7 @@
-import post from "../assets/post-mejoravit.webp"
+import post400 from "../assets/post-mejoravit-400.webp"
+import post500 from "../assets/post-mejoravit-500.webp"
+import post760 from "../assets/post-mejoravit-760.webp"
+import post960 from "../assets/post-mejoravit-960.webp"
 import { IconoCheck } from "./Iconos"
 import "./Credito.css"
 
@@ -14,8 +17,14 @@ export default function Credito() {
     <section className="seccion credito" id="credito">
       <div className="contenedor credito__grid">
         <div className="credito__media">
+          {/* Medido en el navegador: la imagen ocupa 342 px a 390 de ancho de
+              ventana, 460 px entre 768 y 900, y ~477 px por encima. El srcset
+              deja que el navegador elija según eso y según la densidad de la
+              pantalla, en vez de bajar siempre la versión grande. */}
           <img
-            src={post}
+            src={post760}
+            srcSet={`${post400} 400w, ${post500} 500w, ${post760} 760w, ${post960} 960w`}
+            sizes="(max-width: 480px) 92vw, (max-width: 900px) 460px, 480px"
             alt="Campaña de CSIP del Crédito Mejoravit: remodela tu hogar y mejora tu espacio familiar"
             width="760"
             height="760"

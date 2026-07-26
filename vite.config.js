@@ -1,5 +1,6 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
+import { heroeSizes } from "./src/data/imagenes.js"
 import { empresa, preguntas, requisitos, sitio } from "./src/data/site.js"
 
 const url = sitio.url.replace(/\/$/, "")
@@ -92,22 +93,29 @@ function seo() {
       // del bundle, así que el navegador no puede descubrirla al analizar el
       // HTML. Buscamos su nombre con hash y la precargamos.
       const archivos = Object.keys(ctx.bundle || {})
-      const heroe = archivos.find((f) => /familia-.*\.webp$/.test(f))
-      const precargas = heroe
-        ? [
-            {
-              tag: "link",
-              attrs: {
-                rel: "preload",
-                as: "image",
-                href: `/${heroe}`,
-                type: "image/webp",
-                fetchpriority: "high",
+      const heroe380 = archivos.find((f) => /\/familia-380-[^/]+\.webp$/.test(f))
+      const heroe500 = archivos.find((f) => /\/familia-(?!380-)[^/]+\.webp$/.test(f))
+
+      // La precarga tiene que declarar el mismo srcset y el mismo sizes que la
+      // etiqueta <img>. Si no coinciden, el escáner de precarga puede elegir un
+      // candidato distinto al que elige el renderizador y se descargan las dos.
+      const precargas =
+        heroe380 && heroe500
+          ? [
+              {
+                tag: "link",
+                attrs: {
+                  rel: "preload",
+                  as: "image",
+                  type: "image/webp",
+                  imagesrcset: `/${heroe380} 380w, /${heroe500} 500w`,
+                  imagesizes: heroeSizes,
+                  fetchpriority: "high",
+                },
+                injectTo: "head",
               },
-              injectTo: "head",
-            },
-          ]
-        : []
+            ]
+          : []
 
       // Las tres tipografías se usan por encima del pliegue (Inter en el texto,
       // Playfair en el título y su itálica en el lema). Si sólo se declararan en
