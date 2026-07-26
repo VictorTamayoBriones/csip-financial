@@ -1,4 +1,4 @@
-import post from "../assets/post-mejoravit.jpg"
+import post from "../assets/post-mejoravit.webp"
 import { IconoCheck } from "./Iconos"
 import "./Credito.css"
 

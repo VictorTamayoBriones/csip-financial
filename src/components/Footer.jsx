@@ -1,4 +1,4 @@
-import logo from "../assets/logo-csip.jpg"
+import logo from "../assets/logo-csip.webp"
 import { empresa, mensajeDefault, navegacion, whatsapp } from "../data/site"
 import { IconoCorreo, IconoTelefono, IconoWhatsApp } from "./Iconos"
 import "./Footer.css"

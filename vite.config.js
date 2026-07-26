@@ -87,8 +87,29 @@ function seo() {
   return {
     name: "csip-seo",
 
-    transformIndexHtml() {
+    transformIndexHtml(html, ctx) {
+      // La imagen del héroe es el elemento LCP, pero su URL sólo aparece dentro
+      // del bundle, así que el navegador no puede descubrirla al analizar el
+      // HTML. Buscamos su nombre con hash y la precargamos.
+      const heroe = Object.keys(ctx.bundle || {}).find((f) => /familia-.*\.webp$/.test(f))
+      const precargas = heroe
+        ? [
+            {
+              tag: "link",
+              attrs: {
+                rel: "preload",
+                as: "image",
+                href: `/${heroe}`,
+                type: "image/webp",
+                fetchpriority: "high",
+              },
+              injectTo: "head",
+            },
+          ]
+        : []
+
       return [
+        ...precargas,
         { tag: "link", attrs: { rel: "canonical", href: `${url}/` }, injectTo: "head" },
         { tag: "meta", attrs: { property: "og:url", content: `${url}/` }, injectTo: "head" },
         {

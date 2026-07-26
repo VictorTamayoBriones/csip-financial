@@ -17,7 +17,9 @@
   --crema: #f7f7f1;
   --blanco: #ffffff;
   --gris: #5a5f6b;
-  --gris-claro: #8a8f99;
+  /* Oscurecido desde #8a8f99: aquel daba 3.02:1 sobre el fondo crema y no
+     alcanzaba el mínimo AA de 4.5:1 en los textos legales y notas al pie. */
+  --gris-claro: #6b7079;
   --linea: #e3e3da;
   --linea-suave: #eeeee7;
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import logo from "../assets/logo-csip.jpg"
+import logo from "../assets/logo-csip.webp"
 import { empresa, mensajeDefault, navegacion, whatsapp } from "../data/site"
 import { IconoMenu, IconoWhatsApp } from "./Iconos"
 import "./Header.css"

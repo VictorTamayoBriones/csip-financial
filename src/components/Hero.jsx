@@ -1,4 +1,4 @@
-import familia from "../assets/familia.jpg"
+import familia from "../assets/familia.webp"
 import { empresa, mensajeDefault, montoMaximo, whatsapp } from "../data/site"
 import { IconoFlecha, IconoWhatsApp } from "./Iconos"
 import "./Hero.css"
