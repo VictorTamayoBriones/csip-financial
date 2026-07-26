@@ -9,6 +9,7 @@ import Preguntas from "./components/Preguntas"
 import CtaFinal from "./components/CtaFinal"
 import Footer from "./components/Footer"
 import BotonWhatsApp from "./components/BotonWhatsApp"
+import { Analytics } from "@vercel/analytics/react"
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
       </main>
       <Footer />
       <BotonWhatsApp />
+      <Analytics />
     </>
   )
 }
