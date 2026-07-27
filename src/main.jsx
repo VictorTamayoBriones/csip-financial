@@ -1,10 +1,22 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const raiz = document.getElementById('root')
+const arbol = (
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 )
+
+// En producción el HTML ya viene renderizado desde el build (ver
+// scripts/prerender.mjs) y sólo hay que hidratarlo. En `npm run dev` no hay
+// prerender: Vite sirve el index.html tal cual, con el div vacío, así que ahí
+// montamos desde cero. Hidratar un contenedor vacío haría que React avisara de
+// un desajuste y volviera a renderizar todo.
+if (raiz.hasChildNodes()) {
+  hydrateRoot(raiz, arbol)
+} else {
+  createRoot(raiz).render(arbol)
+}

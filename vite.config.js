@@ -85,8 +85,17 @@ function seo() {
     },
   ]
 
+  // El build de servidor (dist-ssr) sólo existe para que scripts/prerender.mjs
+  // pueda renderizar la página; no se publica. Emitir ahí robots.txt y
+  // sitemap.xml sería trabajo tirado, así que generateBundle se salta esa pasada.
+  let esSSR = false
+
   return {
     name: "csip-seo",
+
+    configResolved(config) {
+      esSSR = Boolean(config.build.ssr)
+    },
 
     transformIndexHtml(html, ctx) {
       // La imagen del héroe es el elemento LCP, pero su URL sólo aparece dentro
@@ -166,6 +175,8 @@ function seo() {
     },
 
     generateBundle() {
+      if (esSSR) return
+
       const hoy = new Date().toISOString().slice(0, 10)
 
       this.emitFile({
