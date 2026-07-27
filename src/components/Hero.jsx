@@ -35,7 +35,7 @@ export default function Hero() {
               rel="noreferrer"
             >
               <IconoWhatsApp />
-              Quiero mis informes
+              Quiero informes
             </a>
             <a className="btn btn--fantasma" href="#solicitud">
               Revisar si califico

@@ -21,9 +21,9 @@ export const sitio = {
 export const empresa = {
   nombre: "CSIP",
   nombreLargo: "CSIP Servicios Financieros",
-  telefono: "221 251 7218",
-  telefonoInternacional: "+522212517218",
-  correo: "contacto@csip.mx", // TODO: confirmar correo real
+  telefono: "221 441 3591",
+  telefonoInternacional: "+522214413591",
+  correo: "laloed21@outlook.es",
   ciudad: "Puebla, México",
   horario: "Lunes a viernes de 9:00 a 19:00 · Sábados de 9:00 a 14:00",
 };

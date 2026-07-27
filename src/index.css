@@ -295,8 +295,6 @@ p {
 .patron {
   -webkit-mask-image: url("/pattern.svg");
   mask-image: url("/pattern.svg");
-  -webkit-mask-size: 120px 120px;
-  mask-size: 120px 120px;
   -webkit-mask-repeat: repeat;
   mask-repeat: repeat;
   background-color: var(--azul);

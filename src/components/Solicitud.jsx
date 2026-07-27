@@ -28,8 +28,6 @@ export default function Solicitud() {
   const validar = () => {
     const nuevos = {}
     if (datos.nombre.trim().length < 3) nuevos.nombre = "Escribe tu nombre completo."
-    if (datos.telefono.replace(/\D/g, "").length !== 10)
-      nuevos.telefono = "Escribe tu número a 10 dígitos."
     if (!datos.estado) nuevos.estado = "Selecciona tu estado."
     setErrores(nuevos)
     return Object.keys(nuevos).length === 0
@@ -42,7 +40,6 @@ export default function Solicitud() {
     const mensaje = [
       "Hola CSIP, quiero saber si califico para el Crédito Mejoravit en efectivo.",
       `Nombre: ${datos.nombre.trim()}`,
-      `Teléfono: ${datos.telefono.trim()}`,
       `Estado: ${datos.estado}`,
       `Relación laboral vigente: ${datos.empleo === "si" ? "Sí" : "No"}`,
     ].join("\n")
@@ -94,20 +91,6 @@ export default function Solicitud() {
               aria-invalid={Boolean(errores.nombre)}
             />
             {errores.nombre && <em>{errores.nombre}</em>}
-          </label>
-
-          <label className="campo">
-            <span>Teléfono (10 dígitos)</span>
-            <input
-              type="tel"
-              inputMode="numeric"
-              value={datos.telefono}
-              onChange={cambiar("telefono")}
-              placeholder="221 000 0000"
-              autoComplete="tel"
-              aria-invalid={Boolean(errores.telefono)}
-            />
-            {errores.telefono && <em>{errores.telefono}</em>}
           </label>
 
           <label className="campo">
