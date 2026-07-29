@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router"
 import logo from "../assets/logo-csip.webp"
 import { empresa, navegacion } from "../data/site"
 import EnlaceWhatsApp from "./EnlaceWhatsApp"
@@ -28,13 +29,13 @@ export default function Header() {
       <div className="header__cinta patron" aria-hidden="true" />
 
       <div className="contenedor header__barra">
-        <a className="header__marca" href="#inicio" onClick={() => setAbierto(false)}>
+        <Link className="header__marca" to="/" onClick={() => setAbierto(false)}>
           <img src={logo} alt="" width="44" height="44" />
           <span>
             <strong>CSIP</strong>
             <small>Servicios Financieros</small>
           </span>
-        </a>
+        </Link>
 
         <nav className={`header__nav ${abierto ? "header__nav--abierto" : ""}`}>
           {navegacion.map((item) => (

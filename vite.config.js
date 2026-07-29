@@ -1,90 +1,21 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import { heroeSizes } from "./src/data/imagenes.js"
-import { empresa, preguntas, requisitos, sitio } from "./src/data/site.js"
+import { sitio } from "./src/data/site.js"
+import { rutasPublicas } from "./src/data/rutas.js"
+import { urlDe } from "./src/seo.js"
 
 const url = sitio.url.replace(/\/$/, "")
 
 /**
- * Todo lo que depende del dominio se genera aquí a partir de `sitio` en
- * src/data/site.js: canónica, Open Graph con URL, Twitter, JSON-LD, robots.txt
- * y sitemap.xml. Así basta cambiar el dominio en un solo lugar.
+ * Genera lo que depende del bundle o del dominio: las precargas con hash, la
+ * imagen social, robots.txt y sitemap.xml.
+ *
+ * El <head> propio de cada ruta —título, descripción, canónica, JSON-LD— lo
+ * genera src/seo.js y lo inyecta scripts/prerender.mjs, porque necesita una
+ * pasada por página y aquí sólo hay una.
  */
 function seo() {
-  const datosEstructurados = [
-    {
-      "@context": "https://schema.org",
-      "@type": "FinancialService",
-      "@id": `${url}/#organizacion`,
-      name: empresa.nombreLargo,
-      alternateName: empresa.nombre,
-      url,
-      logo: `${url}/apple-touch-icon.png`,
-      image: `${url}${sitio.imagen}`,
-      description: sitio.descripcion,
-      telephone: empresa.telefonoInternacional,
-      email: empresa.correo,
-      priceRange: "$$",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Puebla",
-        addressRegion: "Puebla",
-        addressCountry: "MX",
-      },
-      areaServed: { "@type": "Country", name: "México" },
-      openingHours: ["Mo-Fr 09:00-19:00", "Sa 09:00-14:00"],
-      makesOffer: {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "LoanOrCredit",
-          name: "Crédito Mejoravit en efectivo",
-          description:
-            "Asesoría y gestión del Crédito Mejoravit del Infonavit para reparar, remodelar o ampliar tu vivienda, con disposición en efectivo.",
-          loanType: "Crédito para mejora de vivienda",
-          currency: "MXN",
-        },
-      },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": `${url}/#sitio`,
-      url,
-      name: sitio.titulo,
-      inLanguage: "es-MX",
-      publisher: { "@id": `${url}/#organizacion` },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "@id": `${url}/#preguntas`,
-      mainEntity: preguntas.map((p) => ({
-        "@type": "Question",
-        name: p.q,
-        acceptedAnswer: { "@type": "Answer", text: p.a },
-      })),
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "@id": `${url}/#proceso`,
-      name: "Cómo obtener tu Crédito Mejoravit con CSIP",
-      description: "Proceso de cuatro pasos para tramitar el Crédito Mejoravit.",
-      supply: requisitos.map((r) => ({ "@type": "HowToSupply", name: r })),
-      step: [
-        "Escríbenos por WhatsApp",
-        "Revisamos tu precalificación",
-        "Integramos tu expediente",
-        "Recibes tu crédito",
-      ].map((nombre, i) => ({
-        "@type": "HowToStep",
-        position: i + 1,
-        name: nombre,
-        url: `${url}/#proceso`,
-      })),
-    },
-  ]
-
   // El build de servidor (dist-ssr) sólo existe para que scripts/prerender.mjs
   // pueda renderizar la página; no se publica. Emitir ahí robots.txt y
   // sitemap.xml sería trabajo tirado, así que generateBundle se salta esa pasada.
@@ -144,10 +75,11 @@ function seo() {
         })
       }
 
+      // La imagen social es la misma en todas las páginas, así que se queda
+      // aquí. El resto de etiquetas —título, descripción, canónica, og:url y
+      // JSON-LD— son propias de cada ruta y las inyecta scripts/prerender.mjs.
       return [
         ...precargas,
-        { tag: "link", attrs: { rel: "canonical", href: `${url}/` }, injectTo: "head" },
-        { tag: "meta", attrs: { property: "og:url", content: `${url}/` }, injectTo: "head" },
         {
           tag: "meta",
           attrs: { property: "og:image", content: `${url}${sitio.imagen}` },
@@ -165,12 +97,6 @@ function seo() {
           attrs: { name: "twitter:image", content: `${url}${sitio.imagen}` },
           injectTo: "head",
         },
-        {
-          tag: "script",
-          attrs: { type: "application/ld+json" },
-          children: JSON.stringify(datosEstructurados),
-          injectTo: "head",
-        },
       ]
     },
 
@@ -185,17 +111,25 @@ function seo() {
         source: `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`,
       })
 
+      // Sólo las rutas listas para indexarse. Las que están en borrador —con
+      // datos legales sin confirmar— se sirven con noindex y no se anuncian.
+      const urls = rutasPublicas()
+        .map(
+          (r) => `  <url>
+    <loc>${urlDe(r.ruta)}</loc>
+    <lastmod>${hoy}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${r.prioridad.toFixed(1)}</priority>
+  </url>`,
+        )
+        .join("\n")
+
       this.emitFile({
         type: "asset",
         fileName: "sitemap.xml",
         source: `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${url}/</loc>
-    <lastmod>${hoy}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
+${urls}
 </urlset>
 `,
       })

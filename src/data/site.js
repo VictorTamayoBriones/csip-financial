@@ -41,12 +41,24 @@ export const whatsapp = (mensaje) =>
 export const mensajeDefault =
   "Hola CSIP, me interesa el Crédito Mejoravit en efectivo. ¿Me pueden dar informes?";
 
+/**
+ * Los anclajes van precedidos de "/" para que también funcionen desde las
+ * páginas que no son la home: desde /nosotros, un href="#credito" no lleva a
+ * ninguna parte, mientras que "/#credito" vuelve a la home y baja a la sección.
+ */
 export const navegacion = [
-  { href: "#credito", texto: "El crédito" },
-  { href: "#beneficios", texto: "Beneficios" },
-  { href: "#proceso", texto: "Proceso" },
-  { href: "#requisitos", texto: "Requisitos" },
-  { href: "#preguntas", texto: "Preguntas" },
+  { href: "/#credito", texto: "El crédito" },
+  { href: "/#beneficios", texto: "Beneficios" },
+  { href: "/#proceso", texto: "Proceso" },
+  { href: "/#requisitos", texto: "Requisitos" },
+  { href: "/#preguntas", texto: "Preguntas" },
+];
+
+/** Páginas de empresa y legales, enlazadas desde el pie. */
+export const enlacesLegales = [
+  { href: "/nosotros", texto: "Quiénes somos" },
+  { href: "/aviso-de-privacidad", texto: "Aviso de privacidad" },
+  { href: "/terminos", texto: "Términos y condiciones" },
 ];
 
 export const beneficios = [

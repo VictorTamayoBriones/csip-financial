@@ -1,12 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router'
 import './index.css'
 import App from './App.jsx'
 
 const raiz = document.getElementById('root')
 const arbol = (
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 )
 

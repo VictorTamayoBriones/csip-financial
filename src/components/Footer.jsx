@@ -1,5 +1,6 @@
 import logo from "../assets/logo-csip.webp"
-import { empresa, navegacion } from "../data/site"
+import { Link } from "react-router"
+import { empresa, enlacesLegales, navegacion } from "../data/site"
 import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoCorreo, IconoTelefono, IconoWhatsApp } from "./Iconos"
 import "./Footer.css"
@@ -9,13 +10,13 @@ export default function Footer() {
     <footer className="footer">
       <div className="contenedor footer__grid">
         <div className="footer__marca">
-          <a className="footer__logo" href="#inicio">
+          <Link className="footer__logo" to="/">
             <img src={logo} alt="" width="48" height="48" />
             <span>
               <strong>CSIP</strong>
               <small>Servicios Financieros</small>
             </span>
-          </a>
+          </Link>
           <p>
             Asesoría y gestión de crédito para personas trabajadoras. Acompañamos tu
             trámite del Crédito Mejoravit de principio a fin.
@@ -33,6 +34,15 @@ export default function Footer() {
             <a key={item.href} href={item.href}>
               {item.texto}
             </a>
+          ))}
+        </nav>
+
+        <nav className="footer__nav">
+          <h3>Información</h3>
+          {enlacesLegales.map((item) => (
+            <Link key={item.href} to={item.href}>
+              {item.texto}
+            </Link>
           ))}
         </nav>
 

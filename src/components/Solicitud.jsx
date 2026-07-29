@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router"
 import { requisitos, whatsapp } from "../data/site"
 import { registrarClic } from "../data/seguimiento"
 import { IconoCheck, IconoWhatsApp } from "./Iconos"
@@ -148,7 +149,8 @@ export default function Solicitud() {
 
           <p className="formulario__aviso">
             Al enviar aceptas que un asesor de CSIP te contacte. Tus datos se usan
-            únicamente para atender tu solicitud.
+            únicamente para atender tu solicitud; consulta nuestro{" "}
+            <Link to="/aviso-de-privacidad">aviso de privacidad</Link>.
           </p>
         </form>
       </div>

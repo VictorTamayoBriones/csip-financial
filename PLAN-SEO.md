@@ -261,7 +261,17 @@ del marcado es sólida, pero no sustituye a ver la consola.
 
 ---
 
-## Fase 2 — Confianza y entidad (E-E-A-T)
+## Fase 2 — Confianza y entidad (E-E-A-T) 🟡 EN CURSO (29-jul-2026)
+
+> **Corrección de secuencia:** el plan ponía la Fase 2 antes de la 3, pero las
+> páginas legales son URLs nuevas y hasta ahora el sitio tenía una sola ruta y un
+> prerender de una sola página. Hubo que adelantar **T3.1** (enrutado y prerender
+> multi-ruta) para poder hacer nada de esta fase. Ya está hecho.
+>
+> **Hecho:** T3.1, las tres páginas escritas, T2.4 en lo que no depende de datos
+> por confirmar, y el enlazado interno desde el pie y el formulario.
+> **Bloqueado por datos:** las tres páginas están en borrador (`noindex`, fuera
+> del sitemap) hasta que se rellene `src/data/legal.js`. Detalle al final.
 
 El Mejoravit es **YMYL** (*Your Money or Your Life*): Google aplica un estándar de
 calidad más alto a las páginas que pueden afectar las finanzas de una persona. Un
@@ -325,6 +335,53 @@ Añadir:
 en Google Business Profile. Inventarlas es una violación directa de las políticas de
 datos estructurados y expone a una acción manual. Secuencia correcta: T0.3 → pedir
 reseñas a clientes atendidos → cuando haya ≥ 10, añadir `aggregateRating` al schema.
+
+### T2.6 · Resultado de la implementación
+
+**Infraestructura (T3.1, adelantada):** `react-router` en modo declarativo,
+`src/data/rutas.js` como fuente única (enrutado + prerender + sitemap + `<head>`),
+`scripts/prerender.mjs` iterando rutas, `"cleanUrls": true` en `vercel.json`.
+
+**Reorganización del `<head>`:** estaba repartido entre `index.html` (título,
+descripción, OG) y `vite.config.js` (canónica, JSON-LD). Con cuatro rutas eso
+producía títulos duplicados, así que todo lo que es propio de una página se
+generó en `src/seo.js` y lo inyecta el prerender. En `vite.config.js` sólo
+quedan las precargas con hash y la imagen social, que sí son comunes.
+
+**Mecanismo de borrador.** Una ruta con datos sin confirmar en `src/data/legal.js`
+se construye y se puede revisar, pero se sirve con `noindex, nofollow` y no entra
+en el sitemap. El build lo avisa por consola con la lista de campos que faltan.
+Publicar un aviso de privacidad con huecos es peor que no tenerlo, y una página de
+"quiénes somos" sin nombres no aporta la señal de confianza que la justifica.
+
+**JSON-LD**: los campos sin confirmar se omiten en vez de emitirse vacíos —un
+campo vacío Google lo lee como dato de la entidad y lo da por bueno—. Ya se emiten
+`logo` como `ImageObject`, `contactPoint` y `address`; `legalName`, `foundingDate`,
+`sameAs` y `streetAddress` aparecerán solos al rellenar `legal.js`.
+`FAQPage`/`HowTo` quedan sólo en la home y `BreadcrumbList` sólo en las internas.
+
+**Correcciones que exigió el paso a varias páginas:**
+
+- Los anclajes de navegación pasaron de `#credito` a `/#credito`: desde
+  `/nosotros` un `#credito` no lleva a ninguna parte.
+- `DesplazarArriba`: React Router conserva la posición vertical al cambiar de
+  ruta, así que ir a "Quiénes somos" desde media home aterrizaba a media página.
+- El enlace de saltar al contenido apuntaba a `#credito`, que no existe fuera de
+  la home; ahora apunta a `#contenido` en el `<main>`.
+
+**Datos que faltan** (todos en `src/data/legal.js`):
+
+| Campo | Para qué | Bloquea |
+|---|---|---|
+| `razonSocial` | Identidad del responsable | Aviso, términos, `legalName` |
+| `domicilio` | Exigido por la LFPDPPP | Aviso, términos, `streetAddress` |
+| `correoPrivacidad` | Ejercicio de derechos ARCO | Aviso |
+| `identidad.desde` | Antigüedad | Nosotros, `foundingDate` |
+| `identidad.responsable` | Persona identificable (YMYL) | Nosotros |
+| `identidad.redes` | Consolidación de entidad | `sameAs` |
+
+**Pendiente de una persona:** revisión legal del aviso y de los términos antes de
+quitarles el `noindex`.
 
 **Esfuerzo Fase 2:** 8–10 h de redacción y maquetación + revisión legal externa.
 

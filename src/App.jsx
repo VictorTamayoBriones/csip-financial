@@ -1,33 +1,30 @@
+import { Route, Routes } from "react-router"
 import Header from "./components/Header"
-import Hero from "./components/Hero"
-import Confianza from "./components/Confianza"
-import Credito from "./components/Credito"
-import Beneficios from "./components/Beneficios"
-import Proceso from "./components/Proceso"
-import Solicitud from "./components/Solicitud"
-import Preguntas from "./components/Preguntas"
-import CtaFinal from "./components/CtaFinal"
 import Footer from "./components/Footer"
 import BotonWhatsApp from "./components/BotonWhatsApp"
+import DesplazarArriba from "./components/DesplazarArriba"
+import Inicio from "./paginas/Inicio"
+import Nosotros from "./paginas/Nosotros"
+import AvisoPrivacidad from "./paginas/AvisoPrivacidad"
+import Terminos from "./paginas/Terminos"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export default function App() {
   return (
     <>
-      <a className="saltar" href="#credito">
+      <DesplazarArriba />
+      <a className="saltar" href="#contenido">
         Saltar al contenido
       </a>
       <Header />
-      <main>
-        <Hero />
-        <Confianza />
-        <Credito />
-        <Beneficios />
-        <Proceso />
-        <Solicitud />
-        <Preguntas />
-        <CtaFinal />
+      <main id="contenido">
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/aviso-de-privacidad" element={<AvisoPrivacidad />} />
+          <Route path="/terminos" element={<Terminos />} />
+        </Routes>
       </main>
       <Footer />
       <BotonWhatsApp />

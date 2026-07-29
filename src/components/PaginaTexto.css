@@ -1,0 +1,165 @@
+/* Páginas de texto largo: nosotros, aviso de privacidad, términos. */
+
+.pagina {
+  padding: 2rem 0 5rem;
+  background: var(--crema);
+}
+
+/* Medida corta: un documento legal a todo el ancho del contenedor se vuelve
+   ilegible. ~70 caracteres por línea. */
+.pagina__ancho {
+  max-width: 46rem;
+}
+
+.migas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+  color: var(--gris);
+}
+
+.migas a {
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.migas a:hover {
+  text-decoration: underline;
+}
+
+.migas span[aria-hidden] {
+  color: var(--linea);
+}
+
+.pagina__encabezado {
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--linea);
+}
+
+.pagina__encabezado h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--azul);
+}
+
+.pagina__fecha {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--gris);
+}
+
+.pagina__cuerpo {
+  padding-top: 2rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--tinta);
+}
+
+.pagina__cuerpo h2 {
+  margin: 2.75rem 0 1rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  color: var(--azul);
+}
+
+.pagina__cuerpo h2:first-child {
+  margin-top: 0;
+}
+
+.pagina__cuerpo h3 {
+  margin: 2rem 0 0.75rem;
+  font-family: var(--texto);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.pagina__cuerpo p {
+  margin: 0 0 1.15rem;
+}
+
+.pagina__cuerpo ul,
+.pagina__cuerpo ol {
+  margin: 0 0 1.15rem;
+  padding-left: 1.35rem;
+}
+
+.pagina__cuerpo li {
+  margin-bottom: 0.6rem;
+}
+
+.pagina__cuerpo a {
+  color: var(--azul);
+}
+
+.pagina__cuerpo strong {
+  font-weight: 600;
+}
+
+/* Bloque destacado para el aviso de independencia respecto al Infonavit y
+   otras advertencias que no deben pasar desapercibidas. */
+.pagina__nota {
+  margin: 2rem 0;
+  padding: 1.25rem 1.4rem;
+  border-left: 3px solid var(--azul);
+  border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+  background: var(--azul-claro);
+  font-size: 0.96rem;
+}
+
+.pagina__nota :last-child {
+  margin-bottom: 0;
+}
+
+/* Datos de contacto dentro de un documento legal. */
+.pagina__datos {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-sm);
+  background: var(--blanco);
+}
+
+.pagina__datos dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.pagina__datos dt {
+  font-weight: 600;
+  color: var(--gris);
+}
+
+.pagina__datos dd {
+  margin: 0;
+}
+
+@media (max-width: 520px) {
+  .pagina__datos dl {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .pagina__datos dd {
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Marca los datos que faltan por confirmar en las páginas legales. Sólo debería
+   verse en borradores: una ruta con pendientes se sirve con noindex y no entra
+   en el sitemap (ver src/data/rutas.js). */
+.pendiente {
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  background: #fff2b8;
+  color: #5c4400;
+  font-size: 0.92em;
+  font-weight: 600;
+}
