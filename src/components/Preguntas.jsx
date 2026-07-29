@@ -1,4 +1,5 @@
-import { empresa, mensajeDefault, preguntas, whatsapp } from "../data/site"
+import { empresa, preguntas } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoWhatsApp } from "./Iconos"
 import "./Preguntas.css"
 
@@ -13,18 +14,13 @@ export default function Preguntas() {
             Si tu pregunta no está aquí, escríbenos por WhatsApp y te respondemos con
             claridad.
           </p>
-          <a
-            className="preguntas__contacto"
-            href={whatsapp(mensajeDefault)}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <EnlaceWhatsApp className="preguntas__contacto">
             <IconoWhatsApp size={22} />
             <span>
               <small>Resolvemos tu duda hoy</small>
               <strong>{empresa.telefono}</strong>
             </span>
-          </a>
+          </EnlaceWhatsApp>
 
           <div className="rombos preguntas__rombos" aria-hidden="true">
             <span />

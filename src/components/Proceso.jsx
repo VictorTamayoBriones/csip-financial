@@ -1,4 +1,5 @@
-import { mensajeDefault, pasos, whatsapp } from "../data/site"
+import { pasos } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoWhatsApp } from "./Iconos"
 import "./Proceso.css"
 
@@ -23,15 +24,10 @@ export default function Proceso() {
           ))}
         </ol>
 
-        <a
-          className="btn btn--claro proceso__cta"
-          href={whatsapp(mensajeDefault)}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <EnlaceWhatsApp className="btn btn--claro proceso__cta">
           <IconoWhatsApp />
           Empezar por WhatsApp
-        </a>
+        </EnlaceWhatsApp>
       </div>
     </section>
   )

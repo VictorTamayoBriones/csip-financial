@@ -1,4 +1,5 @@
-import { empresa, mensajeDefault, whatsapp } from "../data/site"
+import { empresa } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoWhatsApp } from "./Iconos"
 import "./CtaFinal.css"
 
@@ -15,15 +16,10 @@ export default function CtaFinal() {
         </p>
 
         <div className="cta__acciones">
-          <a
-            className="btn btn--verde"
-            href={whatsapp(mensajeDefault)}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <EnlaceWhatsApp className="btn btn--verde">
             <IconoWhatsApp />
             WhatsApp {empresa.telefono}
-          </a>
+          </EnlaceWhatsApp>
           <a className="btn btn--claro" href={`tel:${empresa.telefonoInternacional}`}>
             Llamar ahora
           </a>

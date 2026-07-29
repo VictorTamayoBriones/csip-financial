@@ -1,7 +1,8 @@
 import familia380 from "../assets/familia-380.webp"
 import familia500 from "../assets/familia.webp"
 import { heroeSizes } from "../data/imagenes"
-import { empresa, mensajeDefault, montoMaximo, whatsapp } from "../data/site"
+import { empresa, montoMaximo } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoFlecha, IconoWhatsApp } from "./Iconos"
 import "./Hero.css"
 
@@ -28,27 +29,17 @@ export default function Hero() {
           </p>
 
           <div className="hero__acciones">
-            <a
-              className="btn btn--verde"
-              href={whatsapp(mensajeDefault)}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <EnlaceWhatsApp className="btn btn--verde">
               <IconoWhatsApp />
               Quiero informes
-            </a>
+            </EnlaceWhatsApp>
             <a className="btn btn--fantasma" href="#solicitud">
               Revisar si califico
               <IconoFlecha />
             </a>
           </div>
 
-          <a
-            className="hero__whatsapp"
-            href={whatsapp(mensajeDefault)}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <EnlaceWhatsApp className="hero__whatsapp">
             <span className="hero__whatsapp-icono">
               <IconoWhatsApp size={22} />
             </span>
@@ -56,7 +47,7 @@ export default function Hero() {
               <small>Escríbenos por WhatsApp</small>
               <strong>{empresa.telefono}</strong>
             </span>
-          </a>
+          </EnlaceWhatsApp>
 
           <div className="rombos hero__rombos" aria-hidden="true">
             <span />

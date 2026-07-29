@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { requisitos, whatsapp } from "../data/site"
+import { registrarClic } from "../data/seguimiento"
 import { IconoCheck, IconoWhatsApp } from "./Iconos"
 import "./Solicitud.css"
 
@@ -44,6 +45,10 @@ export default function Solicitud() {
       `Relación laboral vigente: ${datos.empleo === "si" ? "Sí" : "No"}`,
     ].join("\n")
 
+    // Este envío no usa EnlaceWhatsApp porque no es un enlace: el mensaje se
+    // arma con los datos del formulario, así que hay que registrar el clic a
+    // mano antes de abrir la conversación.
+    registrarClic()
     window.open(whatsapp(mensaje), "_blank", "noopener")
   }
 

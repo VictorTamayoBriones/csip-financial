@@ -1,5 +1,6 @@
 import logo from "../assets/logo-csip.webp"
-import { empresa, mensajeDefault, navegacion, whatsapp } from "../data/site"
+import { empresa, navegacion } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoCorreo, IconoTelefono, IconoWhatsApp } from "./Iconos"
 import "./Footer.css"
 
@@ -37,10 +38,10 @@ export default function Footer() {
 
         <div className="footer__contacto">
           <h3>Contacto</h3>
-          <a href={whatsapp(mensajeDefault)} target="_blank" rel="noreferrer">
+          <EnlaceWhatsApp>
             <IconoWhatsApp size={18} />
             WhatsApp {empresa.telefono}
-          </a>
+          </EnlaceWhatsApp>
           <a href={`tel:${empresa.telefonoInternacional}`}>
             <IconoTelefono size={18} />
             {empresa.telefono}

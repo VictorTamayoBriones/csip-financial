@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import logo from "../assets/logo-csip.webp"
-import { empresa, mensajeDefault, navegacion, whatsapp } from "../data/site"
+import { empresa, navegacion } from "../data/site"
+import EnlaceWhatsApp from "./EnlaceWhatsApp"
 import { IconoMenu, IconoWhatsApp } from "./Iconos"
 import "./Header.css"
 
@@ -41,26 +42,16 @@ export default function Header() {
               {item.texto}
             </a>
           ))}
-          <a
-            className="btn btn--verde header__cta-movil"
-            href={whatsapp(mensajeDefault)}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <EnlaceWhatsApp className="btn btn--verde header__cta-movil">
             <IconoWhatsApp />
             {empresa.telefono}
-          </a>
+          </EnlaceWhatsApp>
         </nav>
 
-        <a
-          className="btn btn--verde header__cta"
-          href={whatsapp(mensajeDefault)}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <EnlaceWhatsApp className="btn btn--verde header__cta">
           <IconoWhatsApp />
           Solicitar informes
-        </a>
+        </EnlaceWhatsApp>
 
         <button
           className="header__hamburguesa"
