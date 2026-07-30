@@ -53,6 +53,15 @@ const DESTINOS = {
     canal: 'Tarjeta',
     mensaje: 'Hola, me compartieron tu contacto y me interesa información sobre un trámite',
   },
+  enlace: {
+    canal: 'Enlace directo',
+    // Lo usa la página puente https://csip-financial.com/whatsapp cuando se
+    // publica sin indicar canal. Esa página construye su propio enlace a
+    // wa.me, así que este mensaje sólo se usaría abriendo la URL a mano.
+    mensaje:
+      'Hola CSIP, me interesa el Crédito Mejoravit en efectivo. ¿Me pueden dar informes?',
+    soloRegistro: true,
+  },
   web: {
     canal: 'Sitio web',
     // El sitio no usa este mensaje: lo arma él mismo antes de abrir wa.me.

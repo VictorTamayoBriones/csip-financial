@@ -39,7 +39,7 @@ export const rutas = [
       "Conoce a CSIP Servicios Financieros: quiénes somos, cómo trabajamos y por qué acompañamos trámites del Crédito Mejoravit del Infonavit.",
     prioridad: 0.6,
     migas: "Quiénes somos",
-    pendientes: faltantes(identidad, ["desde", "responsable"]),
+    pendientes: faltantes(identidad, ["desde", "responsable", "cargo"]),
   },
   {
     ruta: "/aviso-de-privacidad",

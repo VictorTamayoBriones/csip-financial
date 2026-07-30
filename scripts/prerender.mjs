@@ -58,6 +58,18 @@ for (const ruta of rutas) {
   await mkdir(dirname(destino), { recursive: true })
   await writeFile(destino, pagina, "utf8")
 
+  // Red de seguridad. `esBorrador` se fía de src/data/legal.js, y eso ya falló
+  // una vez: un campo relleno con un tipo distinto al que espera la página dio
+  // la ruta por completa mientras el texto seguía mostrando los huecos. Esta
+  // comprobación mira el HTML de verdad, así que no hay forma de engañarla.
+  if (!esBorrador(ruta) && html.includes("por confirmar")) {
+    throw new Error(
+      `${ruta.ruta} se iba a publicar como indexable pero su HTML todavía ` +
+        `contiene marcadores "[por confirmar: …]". Revisa que los campos de ` +
+        `src/data/legal.js tengan la forma que espera la página.`,
+    )
+  }
+
   if (esBorrador(ruta)) borradores.push(ruta)
 
   const estado = esBorrador(ruta) ? "borrador (noindex)" : "pública"

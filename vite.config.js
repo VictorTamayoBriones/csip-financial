@@ -4,6 +4,7 @@ import { heroeSizes } from "./src/data/imagenes.js"
 import { sitio } from "./src/data/site.js"
 import { rutasPublicas } from "./src/data/rutas.js"
 import { urlDe } from "./src/seo.js"
+import { paginaPuente, scriptPuente } from "./src/paginaPuente.js"
 
 const url = sitio.url.replace(/\/$/, "")
 
@@ -108,8 +109,14 @@ function seo() {
       this.emitFile({
         type: "asset",
         fileName: "robots.txt",
-        source: `User-agent: *\nAllow: /\n\nSitemap: ${url}/sitemap.xml\n`,
+        source: `User-agent: *\nAllow: /\nDisallow: /whatsapp\n\nSitemap: ${url}/sitemap.xml\n`,
       })
+
+      // Página puente /whatsapp: enlace amigable para publicar fuera del sitio.
+      // No pasa por React ni por el prerender, es HTML suelto. Ver
+      // src/paginaPuente.js.
+      this.emitFile({ type: "asset", fileName: "whatsapp/index.html", source: paginaPuente() })
+      this.emitFile({ type: "asset", fileName: "whatsapp/ir.js", source: scriptPuente() })
 
       // Sólo las rutas listas para indexarse. Las que están en borrador —con
       // datos legales sin confirmar— se sirven con noindex y no se anuncian.

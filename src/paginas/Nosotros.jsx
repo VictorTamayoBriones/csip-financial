@@ -39,8 +39,10 @@ export default function Nosotros() {
       </p>
       <p>
         Responsable del servicio:{" "}
-        <Dato valor={identidad.responsable?.nombre} nombre="nombre del responsable" />,{" "}
-        <Dato valor={identidad.responsable?.cargo} nombre="cargo" />.
+        <strong>
+          <Dato valor={identidad.responsable} nombre="nombre del responsable" />
+        </strong>
+        , <Dato valor={identidad.cargo} nombre="cargo" />.
       </p>
 
       <h2>Cómo trabajamos</h2>
